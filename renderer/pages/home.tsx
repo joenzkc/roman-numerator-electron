@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <React.Fragment>
       <Head>
-        <title>Home - Nextron (with-tailwindcss)</title>
+        <title>Roman to Numeral Converter</title>
       </Head>
       <HomeContainer>
         <Header />

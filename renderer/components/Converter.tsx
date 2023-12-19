@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Stack } from "@chakra-ui/react";
+import { Button, Flex, Highlight, Input, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import {
   checkValidRomanNumeral,
@@ -46,7 +46,12 @@ const Converter = () => {
     console.log(event.target.value);
     setNumericValue(event.target.value);
     // check if valid number
-    if (!isNaN(Number(event.target.value))) {
+    if (
+      event.target.value == "" ||
+      (!isNaN(Number(event.target.value)) &&
+        Number(event.target.value) > 0 &&
+        Number(event.target.value) < 4000)
+    ) {
       setNumericError(false);
       setRomanValue(
         convertNumberToRomanNumeral(parseInt(event.target.value)).toString()
@@ -58,8 +63,8 @@ const Converter = () => {
   };
 
   return (
-    <Stack h={40}>
-      <Flex className=" space-x-2 p-2">
+    <Stack className="p-2" h={40} maxW={500}>
+      <Flex className=" space-x-2 py-2">
         <Input
           placeholder="Roman"
           errorBorderColor="red.300"
@@ -82,6 +87,32 @@ const Converter = () => {
           isDisabled={romanToNumeric}
         ></Input>
       </Flex>
+      {romanToNumeric && numericValue && (
+        <Flex color="blue.300">
+          <Text>
+            Numeric Value:{" "}
+            <Highlight
+              query={numericValue}
+              styles={{ px: "2", py: "1", rounded: "full", bg: "red.100" }}
+            >
+              {numericValue}
+            </Highlight>{" "}
+          </Text>
+        </Flex>
+      )}
+      {!romanToNumeric && romanValue && (
+        <Flex color="blue.300">
+          <Text>
+            Roman Numeral:{" "}
+            <Highlight
+              query={romanValue}
+              styles={{ px: "2", py: "1", rounded: "full", bg: "red.100" }}
+            >
+              {romanValue}
+            </Highlight>
+          </Text>
+        </Flex>
+      )}
       {romanError && <Flex color="red.300">Invalid Roman Numeral</Flex>}
       {numericError && <Flex color="red.300">Invalid Number</Flex>}
     </Stack>
