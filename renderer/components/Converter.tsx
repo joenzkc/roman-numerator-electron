@@ -17,13 +17,15 @@ const Converter = () => {
   const [romanToNumeric, setRomanToNumeric] = React.useState(true);
 
   const handleChangeRoman = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     setRomanValue(event.target.value);
     if (checkValidRomanNumeral(event.target.value)) {
       setRomanError(false);
-      setNumericValue(
-        convertRomanNumeralToNumber(event.target.value).toString()
-      );
+      const number = convertRomanNumeralToNumber(event.target.value);
+      if (number == 0) {
+        setNumericValue("");
+      } else {
+        setNumericValue(number.toString());
+      }
     } else {
       setNumericValue("");
       setRomanError(true);
@@ -43,7 +45,6 @@ const Converter = () => {
   };
 
   const handleChangeNumeric = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     setNumericValue(event.target.value);
     // check if valid number
     if (
