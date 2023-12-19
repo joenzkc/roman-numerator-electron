@@ -5,6 +5,7 @@ import Image from "next/image";
 import HomeContainer from "../components/HomeContainer";
 import Header from "../components/Header";
 import Converter from "../components/Converter";
+import Tooltip from "../components/Tooltip";
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <HomeContainer>
         <Header />
         <Converter />
+        <Tooltip />
       </HomeContainer>
     </React.Fragment>
   );

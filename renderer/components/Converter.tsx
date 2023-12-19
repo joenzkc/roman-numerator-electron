@@ -1,11 +1,19 @@
-import { Button, Flex, Highlight, Input, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Highlight,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 import {
   checkValidRomanNumeral,
   convertNumberToRomanNumeral,
   convertRomanNumeralToNumber,
 } from "../utils/Utils";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, CopyIcon } from "@chakra-ui/icons";
 
 const Converter = () => {
   const [romanValue, setRomanValue] = React.useState("");
@@ -15,6 +23,7 @@ const Converter = () => {
   // if roman to numeric, converting from roman to numeric
   // else, converting from numeric to roman
   const [romanToNumeric, setRomanToNumeric] = React.useState(true);
+  const toast = useToast();
 
   const handleChangeRoman = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRomanValue(event.target.value);
@@ -63,6 +72,23 @@ const Converter = () => {
     }
   };
 
+  const onClickCopy = () => {
+    // copy to clipboard
+    if (romanToNumeric) {
+      navigator.clipboard.writeText(numericValue);
+    } else {
+      navigator.clipboard.writeText(romanValue);
+    }
+
+    toast({
+      title: `Copied ${
+        romanToNumeric ? "numeric value" : "roman value"
+      } to clipboard!`,
+      duration: 1500,
+      status: "success",
+    });
+  };
+
   return (
     <Stack className="p-2" h={40} maxW={500}>
       <Flex className=" space-x-2 py-2">
@@ -89,7 +115,7 @@ const Converter = () => {
         ></Input>
       </Flex>
       {romanToNumeric && numericValue && (
-        <Flex color="blue.300">
+        <Flex color="blue.300" className=" justify-between items-center">
           <Text>
             Numeric Value:{" "}
             <Highlight
@@ -99,10 +125,13 @@ const Converter = () => {
               {numericValue}
             </Highlight>{" "}
           </Text>
+          <Button className="bg-white" onClick={onClickCopy}>
+            <CopyIcon />
+          </Button>
         </Flex>
       )}
       {!romanToNumeric && romanValue && (
-        <Flex color="blue.300">
+        <Flex color="blue.300" className=" justify-between items-center">
           <Text>
             Roman Numeral:{" "}
             <Highlight
@@ -112,6 +141,9 @@ const Converter = () => {
               {romanValue}
             </Highlight>
           </Text>
+          <Button className="bg-white" onClick={onClickCopy}>
+            <CopyIcon />
+          </Button>
         </Flex>
       )}
       {romanError && <Flex color="red.300">Invalid Roman Numeral</Flex>}
