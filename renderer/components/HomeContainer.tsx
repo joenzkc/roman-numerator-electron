@@ -1,6 +1,6 @@
 import { Center, Container, Flex, Stack } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import AppSelector from "../AppSelector";
+import AppSelector from "./AppSelector";
 
 interface ContainerProps {
   setApp: React.Dispatch<React.SetStateAction<string>>;
