@@ -1,12 +1,16 @@
-import { Flex, Input, Stack } from "@chakra-ui/react";
+import { Button, Flex, Input, Stack } from "@chakra-ui/react";
 import React from "react";
 import { checkValidRomanNumeral } from "../utils/Utils";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 const Converter = () => {
   const [romanValue, setRomanValue] = React.useState("");
   const [numericValue, setNumericValue] = React.useState("");
   const [romanError, setRomanError] = React.useState(false);
   const [numericError, setNumericError] = React.useState(false);
+  // if roman to numeric, converting from roman to numeric
+  // else, converting from numeric to roman
+  const [romanToNumeric, setRomanToNumeric] = React.useState(true);
 
   const handleChangeRoman = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
@@ -16,6 +20,11 @@ const Converter = () => {
     } else {
       setRomanError(true);
     }
+  };
+
+  const onClickArrow = () => {
+    // toggle the romanToNumeric
+    setRomanToNumeric(!romanToNumeric);
   };
 
   const handleChangeNumeric = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +48,11 @@ const Converter = () => {
           value={romanValue}
           focusBorderColor={romanError ? "red.300" : "blue.300"}
           isInvalid={romanError}
+          isDisabled={!romanToNumeric}
         ></Input>
+        <Button onClick={onClickArrow}>
+          {romanToNumeric ? <ArrowRightIcon /> : <ArrowLeftIcon />}
+        </Button>
         <Input
           placeholder="Number"
           errorBorderColor="red.300"
@@ -47,6 +60,7 @@ const Converter = () => {
           onChange={handleChangeNumeric}
           focusBorderColor={numericError ? "red.300" : "blue.300"}
           isInvalid={numericError}
+          isDisabled={romanToNumeric}
         ></Input>
       </Flex>
       {romanError && <Flex color="red.300">Invalid Roman Numeral</Flex>}
