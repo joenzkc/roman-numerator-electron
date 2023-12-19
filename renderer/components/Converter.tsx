@@ -1,4 +1,4 @@
-import { Flex, Input } from "@chakra-ui/react";
+import { Flex, Input, Stack } from "@chakra-ui/react";
 import React from "react";
 import { checkValidRomanNumeral } from "../utils/Utils";
 
@@ -30,24 +30,28 @@ const Converter = () => {
   };
 
   return (
-    <Flex className=" space-x-2 p-2">
-      <Input
-        placeholder="Roman"
-        errorBorderColor="red.300"
-        onChange={(e) => handleChangeRoman(e)}
-        value={romanValue}
-        focusBorderColor={romanError ? "red.300" : "blue.300"}
-        isInvalid={romanError}
-      ></Input>
-      <Input
-        placeholder="Number"
-        errorBorderColor="red.300"
-        value={numericValue}
-        onChange={handleChangeNumeric}
-        focusBorderColor={numericError ? "red.300" : "blue.300"}
-        isInvalid={numericError}
-      ></Input>
-    </Flex>
+    <Stack h={40}>
+      <Flex className=" space-x-2 p-2">
+        <Input
+          placeholder="Roman"
+          errorBorderColor="red.300"
+          onChange={(e) => handleChangeRoman(e)}
+          value={romanValue}
+          focusBorderColor={romanError ? "red.300" : "blue.300"}
+          isInvalid={romanError}
+        ></Input>
+        <Input
+          placeholder="Number"
+          errorBorderColor="red.300"
+          value={numericValue}
+          onChange={handleChangeNumeric}
+          focusBorderColor={numericError ? "red.300" : "blue.300"}
+          isInvalid={numericError}
+        ></Input>
+      </Flex>
+      {romanError && <Flex color="red.300">Invalid Roman Numeral</Flex>}
+      {numericError && <Flex color="red.300">Invalid Number</Flex>}
+    </Stack>
   );
 };
 
