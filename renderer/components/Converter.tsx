@@ -2,6 +2,7 @@ import { Button, Flex, Input, Stack } from "@chakra-ui/react";
 import React from "react";
 import {
   checkValidRomanNumeral,
+  convertNumberToRomanNumeral,
   convertRomanNumeralToNumber,
 } from "../utils/Utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
@@ -47,7 +48,11 @@ const Converter = () => {
     // check if valid number
     if (!isNaN(Number(event.target.value))) {
       setNumericError(false);
+      setRomanValue(
+        convertNumberToRomanNumeral(parseInt(event.target.value)).toString()
+      );
     } else {
+      setRomanValue("");
       setNumericError(true);
     }
   };
