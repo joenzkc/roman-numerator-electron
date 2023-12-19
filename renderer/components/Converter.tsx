@@ -24,6 +24,13 @@ const Converter = () => {
 
   const onClickArrow = () => {
     // toggle the romanToNumeric
+    if (numericError || romanError) {
+      setRomanValue("");
+      setNumericValue("");
+      setNumericError(false);
+      setRomanError(false);
+    }
+
     setRomanToNumeric(!romanToNumeric);
   };
 
