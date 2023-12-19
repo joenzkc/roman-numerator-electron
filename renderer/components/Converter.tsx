@@ -1,6 +1,9 @@
 import { Button, Flex, Input, Stack } from "@chakra-ui/react";
 import React from "react";
-import { checkValidRomanNumeral } from "../utils/Utils";
+import {
+  checkValidRomanNumeral,
+  convertRomanNumeralToNumber,
+} from "../utils/Utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 const Converter = () => {
@@ -17,7 +20,11 @@ const Converter = () => {
     setRomanValue(event.target.value);
     if (checkValidRomanNumeral(event.target.value)) {
       setRomanError(false);
+      setNumericValue(
+        convertRomanNumeralToNumber(event.target.value).toString()
+      );
     } else {
+      setNumericValue("");
       setRomanError(true);
     }
   };
