@@ -12,7 +12,7 @@ import {
   checkValidRomanNumeral,
   convertNumberToRomanNumeral,
   convertRomanNumeralToNumber,
-} from "../utils/Utils";
+} from "../../utils/Utils";
 import { ArrowLeftIcon, ArrowRightIcon, CopyIcon } from "@chakra-ui/icons";
 
 const Converter = () => {
