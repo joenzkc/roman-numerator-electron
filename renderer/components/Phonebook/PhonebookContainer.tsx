@@ -1,18 +1,7 @@
 import { AddIcon, SearchIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import AddContactForm from "./AddContactForm";
-import { b } from "@chakra-ui/toast/dist/toast.provider-ab09bc2e";
 import ContactsList from "./ContactsList";
 
 export interface Contact {
@@ -21,8 +10,12 @@ export interface Contact {
   address: string;
 }
 
-const PhonebookContainer = () => {
-  const [contacts, setContacts] = React.useState<Contact[]>([]);
+export interface PhonebookContainerProps {
+  contacts: Contact[];
+  setContacts: React.Dispatch<React.SetStateAction<Contact[]>>;
+}
+
+const PhonebookContainer = ({ contacts, setContacts }) => {
   const [showAddContact, setShowAddContact] = React.useState<boolean>(false);
 
   const onClickAdd = () => {

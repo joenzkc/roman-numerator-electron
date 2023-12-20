@@ -7,6 +7,8 @@ import PhonebookContainer from "../components/Phonebook/PhonebookContainer";
 export default function HomePage() {
   const [app, setApp] = React.useState("romanToNumeral");
 
+  const [contacts, setContacts] = React.useState([]);
+
   return (
     <React.Fragment>
       <Head>
@@ -14,7 +16,9 @@ export default function HomePage() {
       </Head>
       <HomeContainer setApp={setApp}>
         {app === "romanToNumeral" && <RomanToNumeralConverterContainer />}
-        {app === "phoneBook" && <PhonebookContainer />}
+        {app === "phoneBook" && (
+          <PhonebookContainer contacts={contacts} setContacts={setContacts} />
+        )}
       </HomeContainer>
     </React.Fragment>
   );
