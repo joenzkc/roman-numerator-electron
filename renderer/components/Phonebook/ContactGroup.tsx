@@ -32,10 +32,6 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
 }) => {
   const [showEditContact, setShowEditContact] = React.useState<boolean>(false);
 
-  const onClickEdit = () => {
-    setShowEditContact(true);
-  };
-
   return (
     <Stack className="m-2 p-2">
       <Text>{letter}</Text>
@@ -48,50 +44,6 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
             setShowEditContact={setShowEditContact}
             showEditContact={showEditContact}
           />
-          {/* <Accordion allowToggle>
-            {contacts.map(({ contact, index }, i) => (
-              <AccordionItem
-                rounded={2}
-                key={index}
-                borderTop={i === 0 ? "none" : undefined}
-                borderBottom={i === contacts.length - 1 ? "none" : undefined}
-              >
-                <AccordionButton className="flex space-x-4">
-                  <Avatar name={contact.name} />
-                  <Box
-                    as="span"
-                    flex="1"
-                    textAlign="left"
-                    className="font-bold"
-                  >
-                    {contact.name}
-                  </Box>
-                </AccordionButton>
-                <AccordionPanel>
-                  <Flex justify={"space-between"}>
-                    <Stack className="pl-2 font-sans">
-                      <Text>Mobile: {contact.number}</Text>
-                      <Text>Address: {contact.address}</Text>
-                    </Stack>
-                    <Button
-                      leftIcon={<EditIcon />}
-                      onClick={onClickEdit}
-                      rounded="full"
-                    >
-                      Edit Contact
-                    </Button>
-                  </Flex>
-                </AccordionPanel>
-                <EditContactForm
-                  contacts={contacts.map((contact) => contact.contact)}
-                  index={i}
-                  setContacts={setContacts}
-                  setIsOpen={setShowEditContact}
-                  isOpen={showEditContact}
-                />
-              </AccordionItem>
-            ))}
-          </Accordion> */}
         </CardBody>
       </Card>
     </Stack>

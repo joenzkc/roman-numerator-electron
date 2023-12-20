@@ -6,10 +6,11 @@ import {
 } from "@chakra-ui/accordion";
 import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
-import { EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Box, Flex, Stack, Text } from "@chakra-ui/layout";
 import React from "react";
 import EditContactForm from "./EditContactForm";
+import DeleteContactDialog from "./DeleteContactDialog";
 
 const ContactAccordion = ({
   fullContacts,
@@ -18,6 +19,8 @@ const ContactAccordion = ({
   setShowEditContact,
   showEditContact,
 }) => {
+  const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false);
+
   const onClickEdit = () => {
     setShowEditContact(true);
   };
@@ -43,15 +46,32 @@ const ContactAccordion = ({
                 <Text>Mobile: {contact.number}</Text>
                 <Text>Address: {contact.address}</Text>
               </Stack>
-              <Button
-                leftIcon={<EditIcon />}
-                onClick={onClickEdit}
-                rounded="full"
-              >
-                Edit Contact
-              </Button>
+              <Flex className="space-x-2">
+                <Button
+                  leftIcon={<EditIcon />}
+                  onClick={onClickEdit}
+                  rounded="full"
+                >
+                  Edit Contact
+                </Button>
+                <Button
+                  rounded="full"
+                  colorScheme={"red"}
+                  leftIcon={<DeleteIcon />}
+                  onClick={() => setShowDeleteAlert(true)}
+                >
+                  Delete
+                </Button>
+              </Flex>
             </Flex>
           </AccordionPanel>
+          <DeleteContactDialog
+            fullContacts={fullContacts}
+            setContacts={setContacts}
+            setIsOpen={setShowDeleteAlert}
+            isOpen={showDeleteAlert}
+            contactsIndex={index}
+          />
           <EditContactForm
             contacts={contacts.map((c) => c.contact)}
             index={i}

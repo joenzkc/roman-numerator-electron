@@ -54,8 +54,13 @@ const SearchModal: React.FC<SearchModalProps> = ({
     setResult(result.map((r) => r.item));
   };
 
+  const handleClose = () => {
+    setResult([]);
+    setIsOpen(false);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Search</ModalHeader>
@@ -104,13 +109,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
           )}
         </ModalBody>
         <ModalFooter>
-          <Button
-            colorScheme={"red"}
-            onClick={() => {
-              setResult([]);
-              setIsOpen(false);
-            }}
-          >
+          <Button colorScheme={"red"} onClick={handleClose}>
             Close
           </Button>
         </ModalFooter>
