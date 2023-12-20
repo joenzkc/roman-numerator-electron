@@ -7,6 +7,7 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
 } from "@chakra-ui/modal";
+import { useToast } from "@chakra-ui/react";
 import React from "react";
 
 const DeleteContactDialog = ({
@@ -16,6 +17,8 @@ const DeleteContactDialog = ({
   setIsOpen,
   setContacts,
 }) => {
+  const toast = useToast({});
+
   const name = fullContacts[contactsIndex]
     ? fullContacts[contactsIndex].name
     : "";
@@ -26,6 +29,13 @@ const DeleteContactDialog = ({
     );
     setContacts(newContacts);
     setIsOpen(false);
+    toast({
+      title: "Contact deleted.",
+      description: `${name} has been deleted.`,
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
