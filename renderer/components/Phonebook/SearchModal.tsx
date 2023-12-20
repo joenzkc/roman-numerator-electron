@@ -4,11 +4,23 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { Input } from "@chakra-ui/input";
 import Fuse, { FuseSearchOptions, IFuseOptions } from "fuse.js";
+import ContactAccordion from "./ContactAccordion";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+} from "@chakra-ui/accordion";
+import { Avatar } from "@chakra-ui/avatar";
+import { Text, Box, Flex, Stack } from "@chakra-ui/layout";
+import { Card, CardBody } from "@chakra-ui/card";
+import { Button } from "@chakra-ui/button";
 
 interface SearchModalProps {
   contacts: Contact[];
@@ -25,6 +37,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [result, setResult] = React.useState<Contact[]>([]);
+  const [showEditForm, setShowEditForm] = React.useState<boolean>(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -47,11 +60,60 @@ const SearchModal: React.FC<SearchModalProps> = ({
       <ModalContent>
         <ModalHeader>Search</ModalHeader>
         <ModalBody>
-          <Input placeholder="Search" onChange={handleSearch} />
-          {result.map((contact) => (
-            <div key={contact.name}>{contact.name}</div>
-          ))}
+          <Input
+            placeholder="Search for a number, name or address"
+            onChange={handleSearch}
+          />
+          {result.length > 0 && (
+            <Card>
+              <CardBody>
+                <Accordion allowToggle className="w-full">
+                  {result.map((contact, index) => (
+                    <AccordionItem
+                      rounded={2}
+                      key={index}
+                      borderTop={index === 0 ? "none" : undefined}
+                      borderBottom={
+                        index === result.length - 1 ? "none" : undefined
+                      }
+                    >
+                      <AccordionButton className="flex space-x-4">
+                        <Avatar name={contact.name} />
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          className="font-bold"
+                        >
+                          {contact.name}
+                        </Box>
+                        <AccordionPanel>
+                          <Flex>
+                            <Stack className="pl-2 font-sans">
+                              <Text>Mobile: {contact.number}</Text>
+                              <Text>Address: {contact.address}</Text>
+                            </Stack>
+                          </Flex>
+                        </AccordionPanel>
+                      </AccordionButton>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </CardBody>
+            </Card>
+          )}
         </ModalBody>
+        <ModalFooter>
+          <Button
+            colorScheme={"red"}
+            onClick={() => {
+              setResult([]);
+              setIsOpen(false);
+            }}
+          >
+            Close
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
