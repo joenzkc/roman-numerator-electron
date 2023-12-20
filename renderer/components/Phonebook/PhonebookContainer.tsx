@@ -3,6 +3,7 @@ import { Button, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import AddContactForm from "./AddContactForm";
 import ContactsList from "./ContactsList";
+import SearchModal from "./SearchModal";
 
 export interface Contact {
   name: string;
@@ -17,15 +18,16 @@ export interface PhonebookContainerProps {
 
 const PhonebookContainer = ({ contacts, setContacts }) => {
   const [showAddContact, setShowAddContact] = React.useState<boolean>(false);
+  const [showSearchModal, setShowSearchModal] = React.useState<boolean>(false);
 
   const onClickAdd = () => {
     setShowAddContact(true);
   };
 
-  useEffect(() => {
-    contacts.sort((a, b) => a.name.localeCompare(b.name));
-    console.log(contacts);
-  }, [contacts]);
+  const onClickSearch = () => {
+    setShowSearchModal(true);
+  };
+
   return (
     <Flex direction={"column"} overscroll={"auto"} maxH={"100vh"} w={600}>
       <Flex className="p-4 w-full justify-between items-center">
@@ -38,13 +40,23 @@ const PhonebookContainer = ({ contacts, setContacts }) => {
           >
             Add
           </Button>
-          <Button leftIcon={<SearchIcon />} colorScheme={"facebook"}>
+          <Button
+            leftIcon={<SearchIcon />}
+            onClick={onClickSearch}
+            colorScheme={"facebook"}
+          >
             Search
           </Button>
         </Flex>
         <AddContactForm
           isOpen={showAddContact}
           setIsOpen={setShowAddContact}
+          setContacts={setContacts}
+        />
+        <SearchModal
+          contacts={contacts}
+          isOpen={showSearchModal}
+          setIsOpen={setShowSearchModal}
           setContacts={setContacts}
         />
       </Flex>

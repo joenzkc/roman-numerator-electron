@@ -12,7 +12,6 @@ export default function HomePage() {
 
   useEffect(() => {
     contacts.sort((a, b) => a.name.localeCompare(b.name));
-    console.log(contacts);
   }, [contacts]);
 
   return (

@@ -78,7 +78,9 @@ const AddContactForm: React.FC<AddContactFormProps> = ({
       duration: 2000,
       isClosable: true,
     });
-    setContacts((prev) => [...prev, newContact]);
+    setContacts((prev) =>
+      [...prev, newContact].sort((a, b) => a.name.localeCompare(b.name))
+    );
     setIsOpen(false);
   };
 

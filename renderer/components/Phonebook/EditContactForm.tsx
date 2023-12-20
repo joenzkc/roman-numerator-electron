@@ -16,12 +16,16 @@ import { useToast } from "@chakra-ui/toast";
 interface EditContactForm {
   index: number;
   contacts: Contact[];
+  contactsIndex: number;
+  fullContacts: Contact[];
   setContacts: React.Dispatch<React.SetStateAction<Contact[]>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const EditContactForm: React.FC<EditContactForm> = ({
   index,
+  fullContacts,
+  contactsIndex,
   contacts,
   setContacts,
   isOpen,
@@ -36,10 +40,8 @@ const EditContactForm: React.FC<EditContactForm> = ({
     address: "",
   });
   const toast = useToast({});
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(name, address, number);
     if (
       name === contacts[index].name &&
       number === contacts[index].number &&
@@ -71,7 +73,7 @@ const EditContactForm: React.FC<EditContactForm> = ({
     if (errorPresent) {
       return;
     }
-    contacts[index] = {
+    fullContacts[contactsIndex] = {
       name,
       number,
       address,
@@ -85,7 +87,7 @@ const EditContactForm: React.FC<EditContactForm> = ({
       isClosable: true,
     });
 
-    setContacts([...contacts]);
+    setContacts([...fullContacts].sort((a, b) => a.name.localeCompare(b.name)));
     setIsOpen(false);
   };
 

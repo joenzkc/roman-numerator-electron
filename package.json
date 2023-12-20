@@ -17,7 +17,8 @@
     "@emotion/styled": "^11.11.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
-    "framer-motion": "^10.16.16"
+    "framer-motion": "^10.16.16",
+    "fuse.js": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

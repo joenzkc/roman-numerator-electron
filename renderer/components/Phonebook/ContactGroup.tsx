@@ -12,8 +12,10 @@ import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
 import { EditIcon } from "@chakra-ui/icons";
 import EditContactForm from "./EditContactForm";
+import ContactAccordion from "./ContactAccordion";
 
 interface ContactGroupProps {
+  fullContacts: Contact[];
   contacts: {
     contact: Contact;
     index: number;
@@ -23,6 +25,7 @@ interface ContactGroupProps {
 }
 
 const ContactGroup: React.FC<ContactGroupProps> = ({
+  fullContacts,
   contacts,
   setContacts,
   letter,
@@ -38,7 +41,14 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
       <Text>{letter}</Text>
       <Card rounded={20}>
         <CardBody padding={2}>
-          <Accordion allowToggle>
+          <ContactAccordion
+            fullContacts={fullContacts}
+            contacts={contacts}
+            setContacts={setContacts}
+            setShowEditContact={setShowEditContact}
+            showEditContact={showEditContact}
+          />
+          {/* <Accordion allowToggle>
             {contacts.map(({ contact, index }, i) => (
               <AccordionItem
                 rounded={2}
@@ -81,7 +91,7 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
                 />
               </AccordionItem>
             ))}
-          </Accordion>
+          </Accordion> */}
         </CardBody>
       </Card>
     </Stack>
