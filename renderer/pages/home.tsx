@@ -11,6 +11,7 @@ export default function HomePage() {
   const [contacts, setContacts] = React.useState(DummyContacts);
 
   useEffect(() => {
+    console.log("called");
     contacts.sort((a, b) => a.name.localeCompare(b.name));
   }, [contacts]);
 

@@ -30,8 +30,6 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
   setContacts,
   letter,
 }) => {
-  const [showEditContact, setShowEditContact] = React.useState<boolean>(false);
-
   return (
     <Stack className="m-2 p-2">
       <Text>{letter}</Text>
@@ -41,8 +39,6 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
             fullContacts={fullContacts}
             contacts={contacts}
             setContacts={setContacts}
-            setShowEditContact={setShowEditContact}
-            showEditContact={showEditContact}
           />
         </CardBody>
       </Card>

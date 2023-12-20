@@ -11,19 +11,27 @@ const ContactsList: React.FC<ContactsListProps> = ({
   contacts,
   setContacts,
 }) => {
-  const [groupedContacts, setGroupedContacts] = React.useState({});
+  // const [groupedContacts, setGroupedContacts] = React.useState({});
 
-  useEffect(() => {
-    const groupedContacts = contacts.reduce((grouped, contact, index) => {
-      const firstLetter = contact.name[0];
-      if (!grouped[firstLetter]) {
-        grouped[firstLetter] = [];
-      }
-      grouped[firstLetter].push({ contact, index });
-      return grouped;
-    }, {});
-    setGroupedContacts(groupedContacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   const groupedContacts = contacts.reduce((grouped, contact, index) => {
+  //     const firstLetter = contact.name[0];
+  //     if (!grouped[firstLetter]) {
+  //       grouped[firstLetter] = [];
+  //     }
+  //     grouped[firstLetter].push({ contact, index });
+  //     return grouped;
+  //   }, {});
+  //   setGroupedContacts(groupedContacts);
+  // }, [contacts, groupedContacts]);
+  const groupedContacts = contacts.reduce((grouped, contact, index) => {
+    const firstLetter = contact.name[0];
+    if (!grouped[firstLetter]) {
+      grouped[firstLetter] = [];
+    }
+    grouped[firstLetter].push({ contact, index });
+    return grouped;
+  }, {});
 
   return (
     <div>
