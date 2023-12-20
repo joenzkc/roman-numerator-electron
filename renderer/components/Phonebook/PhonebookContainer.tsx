@@ -13,6 +13,7 @@ import {
 import React, { useEffect } from "react";
 import AddContactForm from "./AddContactForm";
 import { b } from "@chakra-ui/toast/dist/toast.provider-ab09bc2e";
+import ContactsList from "./ContactsList";
 
 export interface Contact {
   name: string;
@@ -54,6 +55,7 @@ const PhonebookContainer = () => {
           setContacts={setContacts}
         />
       </Flex>
+      <ContactsList contacts={contacts} setContacts={setContacts} />
     </Flex>
   );
 };
