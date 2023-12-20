@@ -1,6 +1,6 @@
 import React from "react";
 import { Contact } from "./PhonebookContainer";
-import { Box, Divider, Heading, Stack, Text } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/layout";
 import { Card, CardBody, CardHeader } from "@chakra-ui/card";
 import {
   Accordion,
@@ -9,6 +9,8 @@ import {
   AccordionPanel,
 } from "@chakra-ui/accordion";
 import { Avatar } from "@chakra-ui/avatar";
+import { Button } from "@chakra-ui/button";
+import { EditIcon } from "@chakra-ui/icons";
 
 interface ContactGroupProps {
   contacts: {
@@ -49,10 +51,15 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
                   </Box>
                 </AccordionButton>
                 <AccordionPanel>
-                  <Stack className="pl-2 font-sans">
-                    <Text>Mobile: {contact.number}</Text>
-                    <Text>Address: {contact.address}</Text>
-                  </Stack>
+                  <Flex justify={"space-between"}>
+                    <Stack className="pl-2 font-sans">
+                      <Text>Mobile: {contact.number}</Text>
+                      <Text>Address: {contact.address}</Text>
+                    </Stack>
+                    <Button leftIcon={<EditIcon />} rounded="full">
+                      Edit Contact
+                    </Button>
+                  </Flex>
                 </AccordionPanel>
               </AccordionItem>
             ))}
