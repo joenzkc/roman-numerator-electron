@@ -10,8 +10,9 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import AddContactForm from "./AddContactForm";
+import { b } from "@chakra-ui/toast/dist/toast.provider-ab09bc2e";
 
 export interface Contact {
   name: string;
@@ -26,6 +27,11 @@ const PhonebookContainer = () => {
   const onClickAdd = () => {
     setShowAddContact(true);
   };
+
+  useEffect(() => {
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+    console.log(contacts);
+  }, [contacts]);
   return (
     <Flex direction={"column"} overscroll={"auto"} maxH={"100vh"} w={600}>
       <Flex className="p-4 w-full justify-between items-center">
