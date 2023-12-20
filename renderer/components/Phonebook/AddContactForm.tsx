@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from "@chakra-ui/react";
 import { set } from "lodash";
 
@@ -33,13 +34,13 @@ const AddContactForm: React.FC<AddContactFormProps> = ({
     number: "",
     address: "",
   });
+  const toast = useToast({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // const name = (event.target as HTMLFormElement).name.value;
     // const number = (event.target as HTMLFormElement).number.value;
     // const address = (event.target as HTMLFormElement).address.value;
-    console.log(name, address, number);
     let errorPresent = false;
     if (name === "") {
       setError({ ...error, name: "Name cannot be empty!" });
@@ -70,6 +71,13 @@ const AddContactForm: React.FC<AddContactFormProps> = ({
       address,
     };
 
+    toast({
+      title: "Contact Added.",
+      description: "Contact has been added successfully!",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
     setContacts((prev) => [...prev, newContact]);
     setIsOpen(false);
   };

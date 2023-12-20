@@ -11,6 +11,7 @@ import {
 import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
 import { EditIcon } from "@chakra-ui/icons";
+import EditContactForm from "./EditContactForm";
 
 interface ContactGroupProps {
   contacts: {
@@ -26,6 +27,12 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
   setContacts,
   letter,
 }) => {
+  const [showEditContact, setShowEditContact] = React.useState<boolean>(false);
+
+  const onClickEdit = () => {
+    setShowEditContact(true);
+  };
+
   return (
     <Stack className="m-2 p-2">
       <Text>{letter}</Text>
@@ -56,11 +63,22 @@ const ContactGroup: React.FC<ContactGroupProps> = ({
                       <Text>Mobile: {contact.number}</Text>
                       <Text>Address: {contact.address}</Text>
                     </Stack>
-                    <Button leftIcon={<EditIcon />} rounded="full">
+                    <Button
+                      leftIcon={<EditIcon />}
+                      onClick={onClickEdit}
+                      rounded="full"
+                    >
                       Edit Contact
                     </Button>
                   </Flex>
                 </AccordionPanel>
+                <EditContactForm
+                  contacts={contacts.map((contact) => contact.contact)}
+                  index={i}
+                  setContacts={setContacts}
+                  setIsOpen={setShowEditContact}
+                  isOpen={showEditContact}
+                />
               </AccordionItem>
             ))}
           </Accordion>
